@@ -75,6 +75,7 @@ You can use the following environment variables to configure the adapter:
 
 - `SIGNOZ_LOG_ENDPOINT`: The URL of the SigNoz log endpoint. Default: `http://localhost:8082`
 - `ENV`: The environment name.
+- `HOSTNAME`: Force the hostname to be sent with each log.
 - `DISABLE_JSON_PARSE`: Any string value will disable JSON parsing and sends the JSON log as it is.
 - `DISABLE_LOG_LEVEL_STRING_MATCH`: For non-JSON logs, this adapter tries to detect log level by trying to search string
    "ERROR", "INFO", etc. and map it to Signoz log severity. Assigining any string value to this env var will disable 
