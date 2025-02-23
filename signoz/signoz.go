@@ -75,11 +75,17 @@ func NewSignozAdapter(route *router.Route) (router.LogAdapter, error) {
 	if !exists {
 		envValue = ""
 	}
+
+	hostnameValue, exists := os.LookupEnv("HOSTNAME")
+	if !exists {
+		hostnameValue = ""
+	}
 	return &Adapter{
 		route:                   route,
 		autoParseJson:           autoParseJson,
 		autoLogLevelStringMatch: autoLogLevelStringMatch,
 		env:                     envValue,
+		hostname:                hostnameValue,
 	}, nil
 }
 
@@ -90,6 +96,7 @@ type Adapter struct {
 	autoParseJson           bool
 	autoLogLevelStringMatch bool
 	env                     string
+	hostname                string
 }
 
 type LogMessage struct {
@@ -151,6 +158,7 @@ func (a *Adapter) Stream(logstream chan *router.Message) {
 			Attributes:     map[string]string{},
 			Resources: map[string]string{
 				"service.name": serviceName,
+				"host.name":    a.hostname,
 			},
 			Message: message.Data,
 		}
