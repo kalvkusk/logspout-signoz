@@ -2,10 +2,11 @@ package signoz
 
 import (
 	"fmt"
-	docker "github.com/fsouza/go-dockerclient"
 	"os"
 	"testing"
 	"time"
+
+	docker "github.com/fsouza/go-dockerclient"
 
 	"github.com/gliderlabs/logspout/router"
 )
@@ -59,6 +60,8 @@ func TestNewSignozAdapter(t *testing.T) {
 
 	os.Setenv("ENV", "test")
 	defer os.Unsetenv("ENV")
+	os.Setenv("HOSTNAME", "test")
+	defer os.Unsetenv("HOSTNAME")
 
 	adapterLog, err := NewSignozAdapter(route)
 	adapter := adapterLog.(*Adapter)
